@@ -7,9 +7,6 @@ public class App {
 
         Random random = new Random();
         Scanner scanner = new Scanner(System.in);
-        
-        ArrayList<String> rGiocatore1 = new ArrayList<>();
-        ArrayList<String> rGiocatore2 = new ArrayList<>();
 
         // Array di parole tra cui scegliere
         String[] parole = { "mare", "riso", "pane", "sale", "aria", "sole", "orto", "cane", "fiore", "rete" };
@@ -17,16 +14,20 @@ public class App {
         // Gira per 5 turni
         for (int i = 1; i <= 5; i++) {
 
+            // Array per memorizzare le risposte dei giocatori
+            ArrayList<String> rGiocatore1 = new ArrayList<>();
+            ArrayList<String> rGiocatore2 = new ArrayList<>();
+
             System.out.println("Turno " + i);
-
-            // Selezione casuale di una parola
-            int indiceCasuale = random.nextInt(parole.length);
-            String parolaEstratta = parole[indiceCasuale];
-
-            System.out.println("La parola è: " + parolaEstratta);
 
             // Gira per 2 giocatori
             for (int giocatore = 1; giocatore <= 2; giocatore++) {
+
+                // Selezione casuale di una parola
+                int indiceCasuale = random.nextInt(parole.length);
+                String parolaEstratta = parole[indiceCasuale];
+
+                System.out.println("La parola è: " + parolaEstratta);
 
                 System.out.println("Tocca al Giocatore " + giocatore);
                 // Richiesta input all'utente
@@ -34,18 +35,28 @@ public class App {
                 String risposta = scanner.nextLine();
 
                 // Verifica della risposta
-                if (risposta.indexOf(parolaEstratta) != -1) {
-                    System.out.println("Corretto, la parola " + risposta + " contiene la parola " + parolaEstratta);
-                    
+                if (risposta.indexOf(parolaEstratta) != -1 && !risposta.equals(parolaEstratta)) {
+                    System.out.println("Corretto!");
+
                     // Aggiunta della risposta nel rispettivo Array del giocatore
                     if (giocatore == 1) {
                         rGiocatore1.add(risposta);
                     } else {
                         rGiocatore2.add(risposta);
                     }
+
                 } else {
-                    System.out.println("Sbagliato, la parola " + risposta + " non contiene la parola " + parolaEstratta + "!");
+                    System.out.println("Sbagliato!");
                 }
+            }
+
+            // Verifica del vincitore
+            if (rGiocatore1.size() > rGiocatore2.size()) {
+                System.out.println("Il giocatore 1 ha vinto!");
+            } else if (rGiocatore2.size() > rGiocatore1.size()) {
+                System.out.println("Il giocatore 2 ha vinto!");
+            } else {
+                System.out.println("I due giocatori hanno pareggiato!");
             }
         }
         scanner.close();
